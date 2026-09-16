@@ -1,0 +1,21 @@
+{
+  "name": "wifi-alliance-unifi-relay",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20.6" },
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc --outDir dist --noEmit false",
+    "start": "node --env-file=.env dist/server.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "undici": "^7.16.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  }
+}

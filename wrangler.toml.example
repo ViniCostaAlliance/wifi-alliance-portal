@@ -1,0 +1,27 @@
+name = "wifi-alliance-portal"
+pages_build_output_dir = "public"
+compatibility_date = "2026-09-16"
+
+[[d1_databases]]
+binding = "PORTAL_DB"
+database_name = "wifi-alliance-portal"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+
+[vars]
+PUBLIC_BASE_URL = "https://wifi.allianceconsultoria.com.br"
+ALLOWED_EMAIL_DOMAIN = "allianceconsultoria.com.br"
+EMPLOYEE_SESSION_MINUTES = "480"
+VISITOR_TOKEN_MINUTES = "120"
+UNIFI_RELAY_URL = "https://unifi-relay.allianceconsultoria.com.br"
+ENVIRONMENT = "production"
+
+# Não coloque segredos neste arquivo. Cadastre-os no Cloudflare:
+# ENTRA_TENANT_ID (pode ser variável comum, mas mantê-la como secret é aceitável)
+# ENTRA_CLIENT_ID
+# ENTRA_CLIENT_SECRET
+# UNIFI_RELAY_TOKEN
+# TOKEN_HASH_PEPPER
+# CF_ACCESS_CLIENT_ID
+# CF_ACCESS_CLIENT_SECRET
+# TOKEN_WEBHOOK_URL
+# TOKEN_WEBHOOK_SECRET

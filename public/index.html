@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#071019" />
+    <meta name="description" content="Protótipo privado do portal Wi-Fi Alliance para colaboradores e visitantes." />
+    <title>Alliance Wi-Fi — Acesso seguro</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#portal" aria-label="Alliance Wi-Fi">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i></span>
+        <span><strong>ALLIANCE</strong><small>CONSULTORIA</small></span>
+      </a>
+      <div class="topbar-right">
+        <span class="secure-pill"><span class="pulse"></span> Rede protegida</span>
+        <button class="icon-button" id="helpButton" aria-label="Ajuda" title="Ajuda">?</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="portal-shell" id="portal" aria-labelledby="portal-title">
+        <div class="intro">
+          <div class="eyebrow"><span></span> WIFI.ALLIANCECONSULTORIA.COM.BR</div>
+          <h1 id="portal-title">Conecte-se à rede<br /><em>com segurança.</em></h1>
+          <p>Escolha seu perfil para iniciar uma sessão protegida no Wi‑Fi Alliance.</p>
+          <div class="trust-row">
+            <span><b>U6</b> UniFi U6 Pro</span>
+            <span><b>↗</b> Acesso criptografado</span>
+            <span><b>BR</b> Política LGPD</span>
+          </div>
+        </div>
+
+        <div class="access-card" id="accessCard">
+          <div class="demo-notice"><span>SEGURO</span> Microsoft Entra ID + autorização UniFi</div>
+
+          <div class="profile-switch" role="tablist" aria-label="Tipo de acesso">
+            <button class="profile-tab active" id="employeeTab" role="tab" aria-selected="true" aria-controls="employeePanel">
+              <span class="tab-icon">A</span><span><strong>Colaborador</strong><small>Conta corporativa</small></span>
+            </button>
+            <button class="profile-tab" id="visitorTab" role="tab" aria-selected="false" aria-controls="visitorPanel">
+              <span class="tab-icon">V</span><span><strong>Visitante</strong><small>Acesso temporário</small></span>
+            </button>
+          </div>
+
+          <div class="panel active" id="employeePanel" role="tabpanel" aria-labelledby="employeeTab">
+            <div class="panel-heading">
+              <div class="provider-icon">M</div>
+              <div><h2>Conta Microsoft corporativa</h2><p>Use seu e-mail <strong>@allianceconsultoria.com.br</strong></p></div>
+            </div>
+            <button class="primary-button" id="microsoftButton">
+              <span>Entrar com Microsoft</span><b aria-hidden="true">→</b>
+            </button>
+            <p class="microcopy">Você será direcionado ao Microsoft Entra ID. Este protótipo não solicita nem armazena sua senha.</p>
+
+            <div class="flow-progress" id="employeeProgress" aria-label="Etapas do acesso corporativo">
+              <div class="flow-step active" data-step="1"><span>1</span><p><b>Portal</b><small>Início seguro</small></p></div>
+              <i></i>
+              <div class="flow-step" data-step="2"><span>2</span><p><b>Entra ID</b><small>Identidade</small></p></div>
+              <i></i>
+              <div class="flow-step" data-step="3"><span>3</span><p><b>Callback</b><small>/auth/callback</small></p></div>
+              <i></i>
+              <div class="flow-step" data-step="4"><span>4</span><p><b>UniFi</b><small>Autorizar rede</small></p></div>
+            </div>
+          </div>
+
+          <div class="panel" id="visitorPanel" role="tabpanel" aria-labelledby="visitorTab" hidden>
+            <div class="panel-heading compact">
+              <div class="provider-icon visitor">V</div>
+              <div><h2>Acesso temporário</h2><p>Válido somente durante sua visita</p></div>
+            </div>
+
+            <div class="method-switch" role="tablist" aria-label="Método de acesso do visitante">
+              <button class="method-tab active" id="voucherTab" role="tab" aria-selected="true">Tenho um voucher</button>
+              <button class="method-tab" id="tokenTab" role="tab" aria-selected="false">Receber token</button>
+            </div>
+
+            <div id="voucherForm" class="visitor-form">
+              <label for="voucherCode">Código do voucher</label>
+              <div class="field-with-action">
+                <input id="voucherCode" autocomplete="off" placeholder="Digite o código recebido" />
+                <span>⌁</span>
+              </div>
+              <button class="primary-button" id="voucherButton"><span>Validar e conectar</span><b>→</b></button>
+              <p class="microcopy">O voucher será validado e consumido uma única vez.</p>
+            </div>
+
+            <div id="tokenForm" class="visitor-form" hidden>
+              <label for="visitorEmail">E-mail do visitante</label>
+              <input id="visitorEmail" type="email" placeholder="nome@empresa.com" autocomplete="email" />
+              <label for="visitorSponsor">Responsável na Alliance</label>
+              <input id="visitorSponsor" placeholder="Nome do anfitrião" autocomplete="off" />
+              <button class="primary-button" id="sendTokenButton"><span>Enviar token temporário</span><b>→</b></button>
+              <div class="token-check" id="tokenCheck" hidden>
+                <label for="visitorToken">Token de 6 dígitos</label>
+                <div class="token-row"><input id="visitorToken" inputmode="numeric" maxlength="6" placeholder="482731" /><button id="validateTokenButton">Validar</button></div>
+                <small>O token expira em 10 minutos e só pode ser utilizado uma vez.</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="status-view" id="statusView" hidden aria-live="polite">
+            <div class="status-orbit"><div id="statusIcon">✓</div></div>
+            <p class="status-label" id="statusLabel">SESSÃO AUTORIZADA</p>
+            <h2 id="statusTitle">Você está conectado.</h2>
+            <p id="statusDescription">O UniFi autorizou este dispositivo na rede Alliance.</p>
+            <div class="session-grid">
+              <div><small>PERFIL</small><strong id="sessionProfile">Colaborador</strong></div>
+              <div><small>VALIDADE</small><strong id="sessionValidity">8 horas</strong></div>
+              <div><small>REDE</small><strong>Alliance Secure</strong></div>
+            </div>
+            <div class="callback-box" id="callbackBox" hidden><span>CALLBACK PROCESSADO</span><code>/auth/callback?code=••••••&amp;state=validado</code></div>
+            <button class="secondary-button" id="restartButton">Simular novo acesso</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="architecture" id="architecture" aria-labelledby="architecture-title">
+        <div class="section-copy">
+          <div class="eyebrow"><span></span> ARQUITETURA DO FLUXO</div>
+          <h2 id="architecture-title">Do captive portal à<br /><em>liberação da rede.</em></h2>
+          <p>Uma arquitetura compatível com Cloudflare, sem guardar senhas e com autorização centralizada no UniFi.</p>
+          <div class="legend"><span><i class="real"></i>Componente externo</span><span><i class="demo"></i>Portal Alliance</span></div>
+        </div>
+
+        <div class="architecture-map" aria-label="Diagrama da arquitetura">
+          <div class="arch-node active" data-detail="O UniFi U6 Pro redireciona o dispositivo não autenticado para o domínio do captive portal.">
+            <div class="node-icon">U6</div><div><small>01 · REDE</small><strong>UniFi U6 Pro</strong><span>Captive portal</span></div><b>→</b>
+          </div>
+          <div class="arch-node" data-detail="Cloudflare Pages entrega a interface; um Worker protege rotas, valida state/nonce e mantém segredos em variáveis de ambiente.">
+            <div class="node-icon cloud">CF</div><div><small>02 · EDGE</small><strong>Pages + Worker</strong><span>wifi.allianceconsultoria.com.br</span></div><b>→</b>
+          </div>
+          <div class="arch-split">
+            <div class="arch-node" data-detail="No fluxo corporativo, o Worker inicia OAuth 2.0 / OpenID Connect e o Entra ID autentica a conta Alliance.">
+              <div class="node-icon azure">ID</div><div><small>03A · COLABORADOR</small><strong>Microsoft Entra ID</strong><span>OAuth 2.0 + OIDC</span></div>
+            </div>
+            <div class="arch-node" data-detail="No fluxo de visitante, o Worker valida voucher no UniFi ou gera um token de curta duração vinculado ao anfitrião.">
+              <div class="node-icon token">#</div><div><small>03B · VISITANTE</small><strong>Voucher ou token</strong><span>Expiração automática</span></div>
+            </div>
+          </div>
+          <div class="arch-node callback" data-detail="O Entra ID retorna ao callback. O Worker valida code, state e nonce antes de trocar o código por tokens no back channel.">
+            <div class="node-icon route">↩</div><div><small>04 · RETORNO SEGURO</small><strong>/auth/callback</strong><span>code + state + validação</span></div><b>→</b>
+          </div>
+          <div class="arch-node" data-detail="Após a identidade ou voucher ser validado, o Worker chama a API do UniFi para autorizar somente o dispositivo atual pelo prazo definido.">
+            <div class="node-icon ok">✓</div><div><small>05 · AUTORIZAÇÃO</small><strong>UniFi Network API</strong><span>Dispositivo + validade</span></div><b class="done">✓</b>
+          </div>
+          <div class="arch-detail" id="archDetail">O UniFi U6 Pro redireciona o dispositivo não autenticado para o domínio do captive portal.</div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>© 2026 Alliance Consultoria</span>
+      <span>Portal seguro · Sessões temporárias e auditáveis</span>
+      <a href="#architecture">Como funciona</a>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="/app.js"></script>
+  </body>
+</html>

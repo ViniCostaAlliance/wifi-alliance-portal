@@ -1,0 +1,19 @@
+{
+  "name": "wifi-alliance-portal",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler pages dev public --d1 PORTAL_DB=wifi-alliance-portal",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "deploy": "wrangler pages deploy public --project-name wifi-alliance-portal",
+    "db:migrate": "wrangler d1 execute wifi-alliance-portal --remote --file migrations/0001_initial.sql"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260916.1",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.0",
+    "wrangler": "^4.132.0"
+  }
+}
